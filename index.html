@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>autline procviewer</title>
+        <title>autoline procviewer</title>
         <meta charset="utf-8">
+        <style>
+            #viewer {
+                padding: 8px;
+            }
+
+            #draw-area {
+                border: 1px solid;
+            }
+        </style>
     </head>
     <body>
+        <div>
+            <h4>画像ファイル</h4>
+            <input id="input-image-file" type="file">
+        </div>
+        <div>
+            <h4>制御点ファイル(CSV)</h4>
+            <pre>番号,スコア,x座標,y座標,is_corner,should_split</pre>
+            <input id="input-ctrl-pts-file" type="file">
+        </div>
+
+        <div>
+            <h4>ビューア</h4>
+            <div id="viewer">
+                <canvas id="draw-area"></canvas>
+            </div>
+            <pre id="cursor-coordinates">mouse: (0, 0)</pre>
+            <pre id="cp-display">data:</pre>
+        </div>
+
         <script type="text/javascript" src="dist/bundle.js"></script>
     </body>
 </html>
