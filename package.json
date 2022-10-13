@@ -1,0 +1,18 @@
+{
+  "name": "autoline_procviewer",
+  "version": "1.0.0",
+  "main": "dist/script.js",
+  "repository": "https://github.com/KosukeTakahashi/autoline_procviewer",
+  "author": "KosukeTakahashi <kilotango37@icloud.com>",
+  "license": "MIT",
+  "private": "true",
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
