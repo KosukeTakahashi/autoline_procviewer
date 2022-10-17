@@ -13,14 +13,17 @@ const canvasContext = canvas.getContext('2d')!
 
 const image: HTMLImageElement = new Image()
 const controlPoints: ControlPoint[] = []
-let ctrlPtsMap: {[key: string]: ControlPoint} = {}
+let ctrlPtsMap: {[key: string]: ControlPoint[]} = {}
 
-const displayCtrlPtData = (cp: ControlPoint | undefined) => {
-    if (!cp) {
-        cpDisplay.innerText = 'data:\tN/A'
+const displayCtrlPtData = (cps: ControlPoint[] | undefined) => {
+    if (!cps) {
+        cpDisplay.innerText = 'data:\n\tN/A'
     }
     else {
-        cpDisplay.innerText = `data:\t#${cp.consecutiveNumber}\n\tat (${cp.x}, ${cp.y})\n\tis_corner: ${cp.isCorner}\n\tshould_split: ${cp.shouldSplit}`
+        cpDisplay.innerText = 'data:\n'
+        for (const cp of cps) {
+            cpDisplay.innerText += `\t#${cp.consecutiveNumber}\n\tat (${cp.x}, ${cp.y})\n\tis_corner: ${cp.isCorner}\n\tshould_split: ${cp.shouldSplit}\n\n`
+        }
     }
 }
 
@@ -59,14 +62,14 @@ const redrawCanvas = () => {
 canvas.onmousemove = (event) => {
     const [x, y] = getMouseCoorOnCanvas(event)
     // const cp = ctrlPtsMap[`${x},${y}`]
-    const cp = Array.from({length: CP_DISPLAY_SIZE}, (_, k) =>
+    const cps = Array.from({length: CP_DISPLAY_SIZE}, (_, k) =>
         Array.from({length: CP_DISPLAY_SIZE}, (_, l) =>
             ctrlPtsMap[`${x-CP_LT_SHIFT+k},${y-CP_LT_SHIFT+l}`]
         ).reduce((prev, current, _idx, _arr) => prev ? prev : current)
     ).reduce((prev, current, _idx, _arr) => prev ? prev : current)
     
     coordText.textContent = `mouse: (${x}, ${y})`
-    displayCtrlPtData(cp)
+    displayCtrlPtData(cps)
 }
 
 imageInput.oninput = async () => {
@@ -96,7 +99,11 @@ csvInput.oninput = async () => {
                 parseInt(isCorner) == 0 ? false : true,
                 parseInt(shouldSplit) == 0 ? false : true)
             controlPoints.push(cp)
-            ctrlPtsMap[`${x},${y}`] = cp
+            // ctrlPtsMap[`${x},${y}`] = cp
+            if (!ctrlPtsMap[`${x},${y}`]) {
+                ctrlPtsMap[`${x},${y}`] = []
+            }
+            ctrlPtsMap[`${x},${y}`].push(cp)
         }
 
         redrawCanvas()
