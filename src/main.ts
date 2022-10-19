@@ -24,7 +24,7 @@ const displayCtrlPtData = (cps: ControlPoint[] | undefined) => {
         cpDisplayTable.innerHTML = ''
         for (const cp of cps) {
             const preElement = document.createElement('pre')
-            preElement.innerText = `#${cp.consecutiveNumber}\nat (${cp.x}, ${cp.y})\nis_corner: ${cp.isCorner}\nshould_split: ${cp.shouldSplit}`
+            preElement.innerText = `#${cp.consecutiveNumber}\n${cp.score}\nat (${cp.x}, ${cp.y})\nis_corner: ${cp.isCorner}\nshould_split: ${cp.shouldSplit}`
             cpDisplayTable.appendChild(preElement)
         }
     }
