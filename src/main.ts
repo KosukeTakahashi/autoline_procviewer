@@ -7,7 +7,8 @@ const imageInput: HTMLInputElement = document.querySelector('#input-image-file')
 const csvInput: HTMLInputElement = document.querySelector('#input-ctrl-pts-file')!
 const canvas: HTMLCanvasElement = document.querySelector('#draw-area')!
 const coordText: HTMLPreElement = document.querySelector('#cursor-coordinates')!
-const cpDisplay: HTMLPreElement = document.querySelector('#cp-display')!
+// const cpDisplay: HTMLPreElement = document.querySelector('#cp-display')!
+const cpDisplayTable: HTMLDivElement = document.querySelector('#cp-display')!
 
 const canvasContext = canvas.getContext('2d')!
 
@@ -17,12 +18,14 @@ let ctrlPtsMap: {[key: string]: ControlPoint[]} = {}
 
 const displayCtrlPtData = (cps: ControlPoint[] | undefined) => {
     if (!cps) {
-        cpDisplay.innerText = 'data:\n\tN/A'
+        cpDisplayTable.innerHTML = ''
     }
     else {
-        cpDisplay.innerText = 'data:\n'
+        cpDisplayTable.innerHTML = ''
         for (const cp of cps) {
-            cpDisplay.innerText += `\t#${cp.consecutiveNumber}\n\tat (${cp.x}, ${cp.y})\n\tis_corner: ${cp.isCorner}\n\tshould_split: ${cp.shouldSplit}\n\n`
+            const preElement = document.createElement('pre')
+            preElement.innerText = `#${cp.consecutiveNumber}\nat (${cp.x}, ${cp.y})\nis_corner: ${cp.isCorner}\nshould_split: ${cp.shouldSplit}`
+            cpDisplayTable.appendChild(preElement)
         }
     }
 }

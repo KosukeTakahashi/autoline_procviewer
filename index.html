@@ -11,6 +11,13 @@
             #draw-area {
                 border: 1px solid;
             }
+            .div-horizontal {
+                display: flex;
+            }
+            .div-horizontal > pre {
+                margin-left: 8px;
+                margin-right: 8px;
+            }
         </style>
     </head>
     <body>
@@ -30,7 +37,8 @@
                 <canvas id="draw-area"></canvas>
             </div>
             <pre id="cursor-coordinates">mouse: (0, 0)</pre>
-            <pre id="cp-display">data:</pre>
+            <pre>data:</pre>
+            <div id="cp-display" class="div-horizontal"></div>
         </div>
 
         <script type="text/javascript" src="dist/bundle.js"></script>
