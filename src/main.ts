@@ -96,7 +96,7 @@ csvInput.oninput = async () => {
             const [n, score, x, y, isCorner, shouldSplit, ..._] = line.split(',')
             const cp = new ControlPoint(
                 parseInt(n),
-                parseInt(score),
+                parseFloat(score),
                 parseInt(x),
                 parseInt(y),
                 parseInt(isCorner) == 0 ? false : true,
